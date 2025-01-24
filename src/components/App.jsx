@@ -22,7 +22,7 @@ const rollDice  = () => {
       setGrogu(grogu + 1)
       console.log(setGrogu);
   }else if (randomNumber === 3){
-      setCookies(cookie - 1)
+      setCookies(cookie - 1)//splice o slice (?) para quitar elemento del array
   }else if (randomNumber === 2){
     setFrog(frog - 1)
   }else{ 
