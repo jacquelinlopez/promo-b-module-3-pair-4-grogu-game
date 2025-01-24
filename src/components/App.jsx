@@ -1,44 +1,52 @@
 import {useState} from "react";
 import "../styles/App.scss";
+import Header from "./Header";
+import Board from "./Board";
 
 function App() {
 
   const [grogu, setGrogu] = useState (0);
-  const [cookie, setMercancias] = useState (["🍪", "🍪", "🍪"]);
+  const [cookie, setCookies] = useState (["🍪", "🍪", "🍪"]);
   const [eggs, setEggs] = useState (["🥚", "🥚", "🥚"]);
   const [frog, setFrog] = useState (["🐸", "🐸", "🐸"]);
   const [dado, setDado] = useState (0);
 //   const [game, setGame] = useState ("");
 
-// const getRandomNumber = (1, 5) => {
-//     return Math.random() * (max - min) + min;
-//     console.log(getRandomNumber);
+const getRandomNumber = ()=>{
+  return Math.floor(Math.random() * 4) + 1;
 
-const handleClickDado = () => {
-  getRandomNumber(1, 5)
+};
+const rollDice  = () => {
+  const randomNumber = getRandomNumber();
+  if (randomNumber === 4){
+      setGrogu(grogu + 1)
+      console.log(setGrogu);
+  }else if (randomNumber === 3){
+      setCookies(cookie - 1)
+  }else if (randomNumber === 2){
+    setFrog(frog - 1)
+  }else{ 
+    setEggs(eggs - 1)
   }
+  
+  /*se elimina mercancia
+  funcion que mueve a grogu*/
+ }
+ 
 
 
   return (
    <>
    <section className="page" >
-      
-    <header>
-      <h1>¡Cuidado con Grogu!</h1>
-    </header>
+     <Header/>
+
+    
     <main className="page">
-      <section className="board">
-        <div className="cell"><div className="grogu">👣</div></div>
-        <div className="cell"></div>
-        <div className="cell"></div>
-        <div className="cell"></div>
-        <div className="cell"></div>
-        <div className="cell"></div>
-        <div className="cell"></div>
-      </section>
+      
+    <Board/>
 
       <section>
-        <button className="dice" onClick = {handleClickDado}>Lanzar Dado</button>
+        <button className="dice" onClick = {rollDice}>Lanzar Dado</button>
         <div className="game-status">En curso</div>
       </section>
 
