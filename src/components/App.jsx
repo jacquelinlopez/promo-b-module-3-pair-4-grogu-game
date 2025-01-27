@@ -6,11 +6,12 @@ import Board from "./Board";
 function App() {
 
   const [grogu, setGrogu] = useState (0);
-  const [cookie, setCookies] = useState (["🍪", "🍪", "🍪"]);
+  const [cookies, setCookies] = useState (["🍪", "🍪", "🍪"]);
   const [eggs, setEggs] = useState (["🥚", "🥚", "🥚"]);
   const [frog, setFrog] = useState (["🐸", "🐸", "🐸"]);
   const [dado, setDado] = useState (0);
-//   const [game, setGame] = useState ("");
+  //variable de estado para poder cambiar el mensaje cada vez que tiramos el dado
+  const [gameState, setGameState] = useState ("En curso");
 
 const getRandomNumber = ()=>{
   return Math.floor(Math.random() * 4) + 1;
@@ -18,19 +19,38 @@ const getRandomNumber = ()=>{
 };
 const rollDice  = () => {
   const randomNumber = getRandomNumber();
+  setDado(randomNumber);
+
   if (randomNumber === 4){
-      setGrogu(grogu + 1)
-      console.log(setGrogu);
-  }else if (randomNumber === 3){
-      setCookies(cookie - 1)//splice o slice (?) para quitar elemento del array
-  }else if (randomNumber === 2){
-    setFrog(frog - 1)
-  }else{ 
-    setEggs(eggs - 1)
+    //falta que se actualize la posición de grogu
+    setGrogu(grogu + 1);
+    setGameState("Grogu ha avanzado una casilla");
+    //ponemos el && para decirle que si sale 3 y el array tiene algo, quite una mercancía
+  }else if (randomNumber === 3 && cookies.length > 0){
+    //creamos un array nuevo con "spread operator" que hace una copia del array y nos permite modificar la propiedad que necessitemos, en este caso borrar un elemento del array 
+    const newCookies = [...cookies];
+    newCookies.splice(0,1);
+    //volvemos a pintar el array modificado
+    setCookies(newCookies);
+    setGameState("Se ha descargado una galleta");
+  }else if (randomNumber === 2 && eggs.length > 0){
+    // setFrog(frog - 1)
+    const newEggs = [...eggs];
+    newEggs.splice(0,1);
+    setEggs(newEggs);
+    setGameState("Se ha descargado un huevo");
+  }else if (randomNumber === 1 && frog.length > 0) { 
+    // setEggs(eggs - 1)
+    const newFrog = [...frog];
+    newFrog.splice(0,1);
+    setFrog(newFrog);
+    setGameState("Se ha descargado una rana");
+  } else if(cookies.length === 0 || frog.length === 0 || eggs.length === 0){
+    //si los arrays de mercancías estan vacios, sale este mensaje
+    setGameState("No hay mercancías a descargar");
+  } else {
+    setGameState("Grogu ha ganado!")
   }
-  
-  /*se elimina mercancia
-  funcion que mueve a grogu*/
  }
  
 
@@ -47,23 +67,19 @@ const rollDice  = () => {
 
       <section>
         <button className="dice" onClick = {rollDice}>Lanzar Dado</button>
-        <div className="game-status">En curso</div>
+        <div className="game-status">{gameState}</div>
+        {/* ponemos variable para cambiar el mensaje */}
       </section>
 
       <section className="goods-container">
-        <div className="goods-item">🍪</div>
-        <div className="goods-item">🍪</div>
-        <div className="goods-item">🍪</div>
+        {/* ponemos variable para que el array se vaya actualizando cada vez que tiramos el dado */}
+        <div className="goods-item">{cookies}</div>
       </section>
       <section className="goods-container">
-        <div className="goods-item">🥚</div>
-        <div className="goods-item">🥚</div>
-        <div className="goods-item">🥚</div>
+        <div className="goods-item">{eggs}</div>
       </section>
       <section className="goods-container">
-        <div className="goods-item">🐸</div>
-        <div className="goods-item">🐸</div>
-        <div className="goods-item">🐸</div>
+        <div className="goods-item">{frog}</div>
       </section>
       <section>
         <button className="restart-button">Reiniciar Juego</button>
