@@ -2,6 +2,7 @@ import {useState} from "react";
 import "../styles/App.scss";
 import Header from "./Header";
 import Board from "./Board";
+import Dice from "./Dice";
 
 function App() {
 
@@ -53,20 +54,14 @@ const rollDice  = () => {
   }
  }
  
-
-
   return (
    <>
    <section className="page" >
      <Header/>
-
-    
     <main className="page">
-      
-    <Board/>
-
+    <Board groguPosition = {grogu}/>
       <section>
-        <button className="dice" onClick = {rollDice}>Lanzar Dado</button>
+        <Dice rollDice={rollDice}/>
         <div className="game-status">{gameState}</div>
         {/* ponemos variable para cambiar el mensaje */}
       </section>
