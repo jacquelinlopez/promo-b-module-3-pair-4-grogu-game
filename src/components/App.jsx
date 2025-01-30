@@ -3,6 +3,9 @@ import "../styles/App.scss";
 import Header from "./Header";
 import Board from "./Board";
 import Dice from "./Dice";
+import Form from "./Form"
+
+
 
 function App() {
 
@@ -13,6 +16,8 @@ function App() {
   const [dado, setDado] = useState (0);
   //variable de estado para poder cambiar el mensaje cada vez que tiramos el dado
   const [gameState, setGameState] = useState ("En curso");
+  const [name, setName]= useState ("");
+
 
 const getRandomNumber = ()=>{
   return Math.floor(Math.random() * 4) + 1;
@@ -23,7 +28,6 @@ const rollDice  = () => {
   setDado(randomNumber);
 
   if (randomNumber === 4){
-    //falta que se actualize la posición de grogu
     setGrogu(grogu + 1);
     setGameState("Grogu ha avanzado una casilla");
     //ponemos el && para decirle que si sale 3 y el array tiene algo, quite una mercancía
@@ -33,22 +37,22 @@ const rollDice  = () => {
     newCookies.splice(0,1);
     //volvemos a pintar el array modificado
     setCookies(newCookies);
-    setGameState("Se ha descargado una galleta");
+    setGameState(`${name} se ha descargado una galleta`);
   }else if (randomNumber === 2 && eggs.length > 0){
     // setFrog(frog - 1)
     const newEggs = [...eggs];
     newEggs.splice(0,1);
     setEggs(newEggs);
-    setGameState("Se ha descargado un huevo");
+    setGameState(`${name} se ha descargado un huevo`);
   }else if (randomNumber === 1 && frog.length > 0) { 
     // setEggs(eggs - 1)
     const newFrog = [...frog];
     newFrog.splice(0,1);
     setFrog(newFrog);
-    setGameState("Se ha descargado una rana");
+    setGameState(`${name} se ha descargado una rana`);
   } else if(cookies.length === 0 || frog.length === 0 || eggs.length === 0){
     //si los arrays de mercancías estan vacios, sale este mensaje
-    setGameState("No hay mercancías a descargar");
+    setGameState(`${name} No hay mercancías a descargar`);
   } else {
     setGameState("Grogu ha ganado!")
   }
@@ -61,6 +65,7 @@ const rollDice  = () => {
     <main className="page">
     <Board groguPosition = {grogu}/>
       <section>
+        <Form setName={setName} name={name}/>
         <Dice rollDice={rollDice}/>
         <div className="game-status">{gameState}</div>
         {/* ponemos variable para cambiar el mensaje */}
