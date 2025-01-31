@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import "../styles/App.scss";
 import Header from "./Header";
 import Board from "./Board";
@@ -17,6 +17,17 @@ function App() {
   //variable de estado para poder cambiar el mensaje cada vez que tiramos el dado
   const [gameState, setGameState] = useState ("En curso");
   const [name, setName]= useState ("");
+  
+
+  useEffect(()=> {
+    if(grogu === 6){
+      setGameState(`¡¡Grogu se ha comido el cargamento!! ${name} has perdido`)
+    } else if(cookies.length === 0 && eggs.length === 0 && frog.length === 0) {
+      setGameState(`${name} ganaste, Mando completa la misión`)
+    } else {
+      setGameState (gameState)
+    } 
+  }, [grogu, cookies, eggs, frog]) 
 
 
 const getRandomNumber = ()=>{
@@ -50,9 +61,13 @@ const rollDice  = () => {
     newFrog.splice(0,1);
     setFrog(newFrog);
     setGameState(`${name} se ha descargado una rana`);
-  } else if(cookies.length === 0 || frog.length === 0 || eggs.length === 0){
+  } else if(cookies.length === 0){
+    setGameState(`${name} No hay galletas a descargar`);
+  }else if (frog.length === 0){
+    setGameState(`${name} No hay ranas a descargar`);
+  } else if (eggs.length === 0){
     //si los arrays de mercancías estan vacios, sale este mensaje
-    setGameState(`${name} No hay mercancías a descargar`);
+    setGameState(`${name} No hay huevos a descargar`);
   } else {
     setGameState("Grogu ha ganado!")
   }
@@ -64,7 +79,7 @@ const rollDice  = () => {
      <Header/>
     <main className="page">
     <Board groguPosition = {grogu}/>
-      <section>
+      <section className="diceSection">
         <Form setName={setName} name={name}/>
         <Dice rollDice={rollDice}/>
         <div className="game-status">{gameState}</div>

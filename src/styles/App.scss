@@ -47,6 +47,12 @@ html {
     }
 }
 
+.diceSection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .dice {
     background-color: #fff;
     border: 2px solid #000;
@@ -62,13 +68,15 @@ html {
 .dice_1 {
     background-color: #fff;
     border: 2px solid #000;
-    padding: 10px;
+   padding: 10px;
+   padding-right: 15px;
     cursor: pointer;
     font-weight: bold;
-    margin: 20px 0;
+    margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s;
+    width: 15px;
 }
 
 .dice:hover {
@@ -78,8 +86,6 @@ html {
 .game-status {
     font-size: 18px;
     font-weight: bold;
-    text-shadow: 2px 2px 4px #000;
-    margin-bottom: 10px;
 }
 
 .restart-button {
@@ -92,6 +98,7 @@ html {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: background-color 0.2s ease;
     margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 .restart-button:hover {
@@ -131,7 +138,7 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    // padding: 20px;
 }
 
 input[type="text"] {
@@ -150,4 +157,8 @@ input[type="text"]:focus {
 
 input[type="text"]::placeholder {
     color: #999;
+}
+
+.label_name {
+    text-shadow: 2px 2px 5px #000;
 }

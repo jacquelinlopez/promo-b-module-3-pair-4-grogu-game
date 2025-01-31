@@ -8,7 +8,7 @@ const handleInput = (ev) =>{
   return (
  
     <form className="form">
-     <label htmlFor="">Escribe tu nombre</label>
+     <label className='label_name'>Escribe tu nombre</label>
      <input type="text" name='name' id='name' onChange={handleInput} value={name}/>
     </form>
     
