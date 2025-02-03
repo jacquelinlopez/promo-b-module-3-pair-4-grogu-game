@@ -4,6 +4,11 @@ import Header from "./Header";
 import Board from "./Board";
 import Dice from "./Dice";
 import Form from "./Form"
+import Footer from "./Footer"
+import {Route, Routes} from "react-router-dom"
+import Instruction from "./Instruction"
+import Option from "./Option"
+
 
 
 
@@ -99,6 +104,18 @@ const rollDice  = () => {
       <section>
         <button className="restart-button">Reiniciar Juego</button>
       </section>
+     
+
+      <Footer/>
+      <Routes>
+        <Route path="/instruction" element={<Instruction/>}/>
+        <Route path="/option" element={<Option/>}/>
+
+
+         
+      </Routes>
+  
+
     </main>
     </section>
     
