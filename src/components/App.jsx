@@ -82,6 +82,12 @@ const rollDice  = () => {
    <>
    <section className="page" >
      <Header/>
+     
+     <Routes>
+        <Route path="/instruction" element={<Instruction/>}/>
+        <Route path="/option" element={<Option/>}/>
+      </Routes>
+
     <main className="page">
     <Board groguPosition = {grogu}/>
       <section className="diceSection">
@@ -105,18 +111,9 @@ const rollDice  = () => {
         <button className="restart-button">Reiniciar Juego</button>
       </section>
      
-
-      <Footer/>
-      <Routes>
-        <Route path="/instruction" element={<Instruction/>}/>
-        <Route path="/option" element={<Option/>}/>
-
-
-         
-      </Routes>
-  
-
-    </main>
+      
+    </main> 
+    <Footer/>
     </section>
     
   </>)
